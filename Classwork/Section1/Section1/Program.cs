@@ -10,8 +10,13 @@ namespace Section1
     {
         static void Main( string[] args )
         {
-            //DisplayMenu();
-            PlayWithStrings();
+            bool notQuit;
+            do
+            {
+                notQuit = DisplayMenu();
+            }
+            while (notQuit);
+            //PlayWithStrings();
         }
 
         private static void PlayWithStrings()
@@ -40,49 +45,108 @@ namespace Section1
             string name = firstName + " " + lastName;
 
             //string cannot have value changed/immunable
+            //name = "Hello" + name;
+            Console.WriteLine("Hello " + name);  // Approach 1
+            Console.WriteLine("Hello {0},{1}", firstName, lastName);     //Approach 2 {0} firstName {1} lastName
+            string str = String.Format("Hello {0} {1}", firstName, lastName);   //string format //Approach 3
+            Console.WriteLine(str);
+
+            // Approach 4  - using this approach 
+            Console.WriteLine($"Hello {firstName} {lastName}");
+
+            // NULL vs EMPTY
+            string missing = null; //null: I dont have a value 
+            string empty = ""; // this is a valid string, not same as null
+            string empty2 = String.Empty; //another way of empty string, used for language doesnt support string
+
+            // Checking for empty string -- 3 ways
+            // if (firstName.Length == 0)
+            // if (firstName != null && firstName != "" )
+            if (!String.IsNullOrEmpty(firstName))
+
+            Console.WriteLine(firstName);
+
+            // Other stuff
+            string upperName = firstName.ToUpper();  //capitalize the whole string
+            string lowerName = firstName.ToLower();
+
+            //Comparison
+            bool areEqual = firstName == lastName;
+            areEqual = firstName.ToLower() == lastName.ToLower();
+            areEqual = String.Compare(firstName, lastName, true) == 0; //return to int type O: equal   --->use this way 
+                                                                       // Compare the expression vs the return value => true/false
+
+            bool startsWithA = firstName.StartsWith("A");
+            bool endsWithA = firstName.EndsWith("A");
+            bool hasA = firstName.IndexOf("A") >= 0;    //how many A in the string??
+            string subset = firstName.Substring(4);    //start with index 4 to the end. start point must less than the length
+
+            // Clean up 
+            string cleanMe = firstName.Trim();   //delete whitespace in the front and back of the string
+            string cleanMeBefore = firstName.TrimStart();   // or TrimEnd()
+            string makeLonger = firstName.PadLeft(20);  //PadRight ===> add width in the left or right
+
+            
+       
+
+      
+
         }
 
-        private static void DisplayMenu()
+        private static bool DisplayMenu()
         {
-            Console.WriteLine("A)dd Movie");
-            Console.WriteLine("E)dit Movie");
-            Console.WriteLine("D)elete Movie");
-            Console.WriteLine("V)iew Movies");
-            Console.WriteLine("Q)uit");
-
-            string input = Console.ReadLine();
-            switch (input[0])
+            while (true)
             {
-                case 'A': AddMovie(); break;
-                case 'E': EditMovie(); break;
-                case 'D': DeleteMovie(); break;
-                case 'V': ViewMovies(); break;
-                case 'Q': ; break;
 
-                default: Console.WriteLine("Please enter a valid value."); break;
-                
+                Console.WriteLine("A)dd Movie");
+                Console.WriteLine("E)dit Movie");
+                Console.WriteLine("D)elete Movie");
+                Console.WriteLine("V)iew Movies");
+                Console.WriteLine("Q)uit");
+
+                string input = Console.ReadLine();
+
+                switch (input[0])
+                {
+                    case 'a':
+                    case 'A': AddMovie(); return true;     //multiple cases turn back to the same result
+
+                    case 'e':
+                    case 'E': EditMovie(); return true;
+
+                    case 'd':
+                    case 'D': DeleteMovie(); return true;
+
+                    case 'v':
+                    case 'V': ViewMovies(); return true;
+
+                    case 'q':
+                    case 'Q': ; return false;
+
+                    default: Console.WriteLine("Please enter a valid value."); break;   //always break;
+                };
             };
 
         }
 
         private static void ViewMovies()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("ViewMovie");
         }
 
         private static void EditMovie()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("EditMovie");
         }
 
         private static void AddMovie()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("AddMovie");
         }
 
         private static void DeleteMovie()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("DeleteMovie");
         }
     }
 }
