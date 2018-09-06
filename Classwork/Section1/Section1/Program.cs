@@ -17,7 +17,9 @@ namespace Section1
             }
             while (notQuit);
             //PlayWithStrings();
+
         }
+        
 
         private static void PlayWithStrings()
         {
@@ -51,7 +53,7 @@ namespace Section1
             string str = String.Format("Hello {0} {1}", firstName, lastName);   //string format //Approach 3
             Console.WriteLine(str);
 
-            // Approach 4  - using this approach 
+                // Approach 4  - using this approach 
             Console.WriteLine($"Hello {firstName} {lastName}");
 
             // NULL vs EMPTY
@@ -62,6 +64,7 @@ namespace Section1
             // Checking for empty string -- 3 ways
             // if (firstName.Length == 0)
             // if (firstName != null && firstName != "" )
+            // if (firstName == String.Empty)
             if (!String.IsNullOrEmpty(firstName))
 
             Console.WriteLine(firstName);
@@ -86,16 +89,40 @@ namespace Section1
             string cleanMeBefore = firstName.TrimStart();   // or TrimEnd()
             string makeLonger = firstName.PadLeft(20);  //PadRight ===> add width in the left or right
 
-            
-       
+        }
 
-      
+        private static void PlayWithArrays()
+        {
+            int count = ReadInt32("How many names? ", 1);
+
+            string[] names = new string[count];
+            for (int index = 0; index < count; ++index)
+            {
+                Console.Write("Name? ");
+                names[index] = Console.ReadLine();
+            };
+
+
+            //foreach v.s for statement (same purpose) 
+                    //However foreach loop can't work with the sub array. It will run though the whole array 
+            foreach (string name in names)  // new variable name in the names array 
+            //number of elements arrayName.Length
+            //for (int index = 0; index < names.Length; ++index) 
+            {
+                //readonly - not allowed 
+                //name = " ";  --- can't modify the array, add or remove
+                string str = name;
+                str = "";
+                // Console.WriteLine(names[index]);  --- with for statement 
+                Console.WriteLine(name);
+            }
 
         }
+           
 
         private static bool DisplayMenu()
         {
-            while (true)
+            while (true)  //control flow 
             {
 
                 Console.WriteLine("A)dd Movie");
@@ -141,12 +168,57 @@ namespace Section1
 
         private static void AddMovie()
         {
-            Console.WriteLine("AddMovie");
+            name = ReadString("Enter a name: ", true);
+            description = ReadString("Enter a description: ");
+            runLength = ReadInt32("Enter run length (in minutes): ", 0);  //at least 0
         }
 
         private static void DeleteMovie()
         {
             Console.WriteLine("DeleteMovie");
         }
+
+        private static int ReadInt32( string message, int minValue )  //read an int  --- parameter
+        {
+            while (true)
+            {
+
+                Console.WriteLine(message);
+                string input = Console.ReadLine();
+
+                if (Int32.TryParse(input, out int result))
+                {
+                    if (result >= minValue)
+                        return result;
+                };
+                Console.WriteLine($"You must enter an integer value >= {minValue}");
+            };
+        }
+
+        private static string ReadString (string message)
+        {
+            return ReadString(message, false);
+        }
+
+        private static string ReadString( string message, bool required )
+        {
+            while (true)
+            {
+                Console.WriteLine(message);
+                string input = Console.ReadLine();
+
+                if (!String.IsNullOrEmpty(input) || !required )
+                    return input;
+
+                Console.WriteLine("You must enter a value");
+            };
+        }
+
+        //A movie name 
+        static string name;
+        static string description;
+        static int runLength;
+        //static DateTime releaseDate;
+
     }
 }
