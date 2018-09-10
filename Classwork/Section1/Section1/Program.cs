@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/*
+ * ITSE 1420
+ * Sample implementation 
+*/
+
+using System;
 
 namespace Section1
 {
@@ -35,8 +36,10 @@ namespace Section1
             //457.ToString();
             //Console.ReadLine().ToString();   //convert any expression into string 
 
+            
             string message = "Hello\tworld"; //escape sequence \t = to tab character 
             string filePath = "C:\\Temp\\Test";
+            
 
             //Verbatim strings
             filePath = @"C:\Temp\Test";
@@ -158,12 +161,36 @@ namespace Section1
 
         private static void ViewMovies()
         {
-            Console.WriteLine("ViewMovie");
+            if (String.IsNullOrEmpty(name))         //if there is no Movie, print out no movie 
+            {
+                Console.WriteLine("No movie available");
+                return;
+            }
+            
+            Console.WriteLine(name);
+
+            if (!String.IsNullOrEmpty(description))
+                Console.WriteLine(description);
+
+            Console.WriteLine($"Run length = {runLength} mins");
         }
 
-        private static void EditMovie()
+        private static void EditMovie()  //copy from add movie first 
         {
-            Console.WriteLine("EditMovie");
+            ViewMovies();
+
+            var newName = ReadString("Enter a name (or press Enter for default: )", false); //do not modify, change true to false or take it out => except empty string 
+            if (!String.IsNullOrEmpty(newName))  //assign a new name
+                name = newName;
+
+            var newDescription = ReadString("Enter a new description (or press Enter for default: )");
+            if (!String.IsNullOrEmpty(newDescription))
+                description = newDescription;
+
+          
+            var newLength = ReadInt32("Enter run length (in minutes): ", 0);
+            if (newLength > 0)
+                runLength = newLength;
         }
 
         private static void AddMovie()
@@ -175,7 +202,43 @@ namespace Section1
 
         private static void DeleteMovie()
         {
-            Console.WriteLine("DeleteMovie");
+            if (Confirm("Are you sure you want to delete this movie?"))
+            {
+                //Delete the movie 
+                name = null;  //set back to null
+                description = null;
+                runLength = 0;
+            };
+
+        }
+
+        private static bool Confirm( string message ) //generate a method 
+        {
+            Console.WriteLine($"{message} (Y/N)");
+            do
+            {
+                ConsoleKeyInfo key = Console.ReadKey(true);  //Readkey return back to keyinfo, true => dont see the key printed out 
+                switch (key.KeyChar)
+                {
+                    case 'Y':
+                    case 'y':
+                    return true;
+
+                    case 'N':
+                    case 'n':
+                    return false;
+                };
+
+                /*
+                if (key.KeyChar == 'Y')
+                    return true;
+                else if (key.KeyChar == 'N')
+                    return false;
+                */
+            }
+            while (true);
+
+
         }
 
         private static int ReadInt32( string message, int minValue )  //read an int  --- parameter
@@ -186,7 +249,7 @@ namespace Section1
                 Console.WriteLine(message);
                 string input = Console.ReadLine();
 
-                if (Int32.TryParse(input, out int result))
+                if (Int32.TryParse(input, out int result))  // can use out var instead of out in 
                 {
                     if (result >= minValue)
                         return result;
