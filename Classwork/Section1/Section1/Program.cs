@@ -21,6 +21,70 @@ namespace Section1
 
         }
         
+        private static void PayWithObjects()
+        {
+            int hours = 10;
+            Int32 hoursFull = 10;
+            var areEqual = hours == hoursFull;
+
+            //Write a new funtion 
+            //object obj1 = DisplayObject("Hello");
+
+           var obj1 = "Hello" ; //object type: base type , almost never use this type. Anything can be assigned to object
+           DisplayObject(obj1);
+
+        }
+
+        private static void DisplayObject( object value)  //rename funtion: rigth click and choose rename  and apply  
+        {               //object can be null
+            if (value == null)
+                return;
+            
+
+            //Approach 1: operator "is"
+            if ( value is string)  //type check: what is the type of value: object => object can be string
+            {
+                var str = (string)value; //typecast: verify if value is string 
+                Console.WriteLine(str);
+            }
+            else
+            {
+                var str = value.ToString();  //convert to string 
+                Console.WriteLine(str);
+            }
+
+            //Approach 2: operator "as"
+            var str2 = value as string;
+            if (str2 != null)
+                Console.WriteLine(str2);
+            else
+                Console.WriteLine(value.ToString());
+
+            //Approach 3: 
+            var str3 = value as string;
+            Console.WriteLine((str3 != null) ? str3.ToString() : value.ToString());
+
+            //Approach 4: null Coalescing
+            var str4 = value as string;
+            Console.WriteLine((str4 ?? value).ToString()); //choosing str4 or value to string. If str4 is not null, then value E1 ?? E2
+
+            //Approach 5:**
+            // var str5 = value is string;  compared to approach 1
+            if (value is string str5)
+                Console.WriteLine(str5.ToString());
+            else
+                Console.WriteLine(value.ToString());
+
+            //Approach 6:** start with App 4: null conditional 
+            var str6 = value as string;
+            Console.WriteLine(str6 ?.ToString());  //str6 is not null, convert to string: expression ?. <function>
+
+            //Appr 5 and 6 are efficient 
+
+
+
+
+        }
 
         private static void PlayWithStrings()
         {
@@ -37,12 +101,12 @@ namespace Section1
             //Console.ReadLine().ToString();   //convert any expression into string 
 
             
-            string message = "Hello\tworld"; //escape sequence \t = to tab character 
-            string filePath = "C:\\Temp\\Test";
+            //string message = "Hello\tworld"; //escape sequence \t = to tab character 
+            //string filePath = "C:\\Temp\\Test";
             
 
             //Verbatim strings
-            filePath = @"C:\Temp\Test";
+            //filePath = @"C:\Temp\Test";
 
             //Concat
             string firstName = "Bob";
@@ -60,8 +124,8 @@ namespace Section1
             Console.WriteLine($"Hello {firstName} {lastName}");
 
             // NULL vs EMPTY
-            string missing = null; //null: I dont have a value 
-            string empty = ""; // this is a valid string, not same as null
+            //string missing = null; //null: I dont have a value 
+            //string empty = ""; // this is a valid string, not same as null
             string empty2 = String.Empty; //another way of empty string, used for language doesnt support string
 
             // Checking for empty string -- 3 ways
@@ -249,6 +313,7 @@ namespace Section1
                 Console.WriteLine(message);
                 string input = Console.ReadLine();
 
+                //int.TryParse(); -- still work as Int32.TryParse
                 if (Int32.TryParse(input, out int result))  // can use out var instead of out in 
                 {
                     if (result >= minValue)
