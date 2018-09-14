@@ -1,8 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/* 
+ * Student: Chau Trinh
+ * Class: ITSE 1430
+ * Lab 1: Pizza Creator
+ * Date: 14 Sep 2018
+ */
+
+using System;
 
 namespace PizzaCreator
 {
@@ -781,7 +784,7 @@ namespace PizzaCreator
         {
             do
             {
-                Console.WriteLine("Do you want to Reselect the meat option? Y/N");
+                Console.WriteLine("Do you want to Reselect the vegetables option? Y/N");
                 ConsoleKeyInfo key = Console.ReadKey(true);
                 switch (key.KeyChar)
                 {
