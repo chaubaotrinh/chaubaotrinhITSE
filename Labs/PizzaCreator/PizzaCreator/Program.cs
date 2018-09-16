@@ -135,7 +135,7 @@ namespace PizzaCreator
                     Console.WriteLine($"   {sauce.PadRight(17)} {saucePrice:C}");
 
                 Console.WriteLine("----------------------------");
-                Console.WriteLine($"Total               {totalPrice:C}");
+                Console.WriteLine($"Total                {totalPrice:C}");
 
             }
         }
