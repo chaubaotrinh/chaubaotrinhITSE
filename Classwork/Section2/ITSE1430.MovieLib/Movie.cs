@@ -6,9 +6,14 @@ using System.Threading.Tasks;
 
 namespace ITSE1430.MovieLib
 {
-    class Movie
+    public class Movie    //(type = class)
     {
-        public string Name;
+        public string Name;     //Name, ....RunLength are members
         //public System.String Name; (same as line 11)
+
+        public string Description;
+
+        public int ReleaseYear;
+        public int RunLength; 
     }
 }
