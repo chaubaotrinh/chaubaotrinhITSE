@@ -12,7 +12,7 @@ namespace ITSE1430.MovieLib.UI
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        public MainForm()  
         {
             InitializeComponent();
         }
@@ -43,7 +43,15 @@ namespace ITSE1430.MovieLib.UI
                 return;
             //form.ShowDialog(); => show model window => can't interact with main/parent window => Alt F4 to exist 
             //form.Show();  // show modeless window => can interact with main window 
-            MessageBox.Show("Adding movie");
+
+
+            //MessageBox.Show("Adding movie");
+            Movie = form.Movie;
+            //Movie.Name = "";
         }
+
+        private Movie Movie;
+
+       
     }
 }

@@ -17,6 +17,8 @@ namespace ITSE1430.MovieLib.UI
             InitializeComponent();
         }
 
+        public Movie Movie;   //declare a field to store a movie inside of class and outside all other functions, type and field have the same name
+
         private void OnCancel( object sender, EventArgs e )
         {
             DialogResult = DialogResult.Cancel;
@@ -28,23 +30,27 @@ namespace ITSE1430.MovieLib.UI
             var movie = new Movie();   //new: to create the instance of the object
             // if you next do movie = new Movie(); => delete line above
             var movie2 = new Movie(); // => to create a new set of Movie(), not lose the previous one 
+            var name = movie2.GetName();
+
 
             //Name is required
-            movie.Name = _txtName.Text;
+            movie.SetName (_txtName.Text);
             if (String.IsNullOrEmpty(_txtName.Text))
                 return;
 
-            movie.Description = _txtDescription.Text;
+            movie.SetDescription (_txtDescription.Text);
 
             //Released year is numeric, if set
-            movie.ReleaseYear = GetInt32(_ReleasedYear);
-            if (movie.ReleaseYear < 0)
+            movie.SetReleaseYear( GetInt32(_ReleasedYear));
+            if (movie.GetReleaseYear() < 0)
                 return;
 
             //Run Length, if set
-            movie.RunLength = GetInt32(_RunLength);
-            if (movie.RunLength < 0)
+            movie.SetRunLength ( GetInt32(_RunLength));
+            if (movie.GetRunLength() < 0)
                 return;
+
+            Movie = movie;
             
             DialogResult = DialogResult.OK;  // if click save => return ok
             Close();
