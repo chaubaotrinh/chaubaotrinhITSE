@@ -29,25 +29,25 @@ namespace ITSE1430.MovieLib.UI
         {
             var movie = new Movie();   //new: to create the instance of the object
             // if you next do movie = new Movie(); => delete line above
-            var movie2 = new Movie(); // => to create a new set of Movie(), not lose the previous one 
-            var name = movie2.GetName();
+            //var movie2 = new Movie(); // => to create a new set of Movie(), not lose the previous one 
+            //var name = movie2.GetName();
 
-
+            movie.Name = _txtName.Text;
             //Name is required
-            movie.SetName (_txtName.Text);
-            if (String.IsNullOrEmpty(_txtName.Text))
+            //movie.SetName (_txtName.Text);
+            if (String.IsNullOrEmpty(movie.Name))
                 return;
-
-            movie.SetDescription (_txtDescription.Text);
+            movie.Description = _txtDescription.Text;
+            //movie.SetDescription (_txtDescription.Text);
 
             //Released year is numeric, if set
-            movie.SetReleaseYear( GetInt32(_ReleasedYear));
-            if (movie.GetReleaseYear() < 0)
+            movie.ReleaseYear=( GetInt32(_ReleasedYear));
+            if (movie.ReleaseYear < 0)
                 return;
 
             //Run Length, if set
-            movie.SetRunLength ( GetInt32(_RunLength));
-            if (movie.GetRunLength() < 0)
+            movie.RunLength = ( GetInt32(_RunLength));
+            if (movie.RunLength < 0)
                 return;
 
             Movie = movie;
