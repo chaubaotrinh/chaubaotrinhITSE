@@ -41,17 +41,64 @@ namespace ITSE1430.MovieLib.UI
 
             if (form.ShowDialog(this) == DialogResult.Cancel)  //after Cancel codes in MovieForm
                 return;
-            //form.ShowDialog(); => show model window => can't interact with main/parent window => Alt F4 to exist 
-            //form.Show();  // show modeless window => can interact with main window 
+                                //form.ShowDialog(); => show model window => can't interact with main/parent window => Alt F4 to exist 
+                                //form.Show();  // show modeless window => can interact with main window 
 
 
-            //MessageBox.Show("Adding movie");
-            Movie = form.Movie;
-            //Movie.Name = "";
+                                //MessageBox.Show("Adding movie");
+                                //_movies[0] = form.Movie;
+            _database.Add(form.Movie);
+            RefreshMovies();
+                                //Movie.Name = "";
         }
 
-        private Movie Movie;
+        //private Movie Movie;
+        //private Movie[] _movies = new Movie[100]; // change to array 
+        private MovieDatabase _database = new MovieLib.MovieDatabase();
 
-       
+        private void MainForm_Load( object sender, EventArgs e ) //from caption bar, double click 
+        {
+            _listMovies.DisplayMember = "Name";  //displayMember property => show name 
+            RefreshMovies();
+            
+        }
+        private void RefreshMovies()
+        {
+            var movies = _database.GetAll();
+
+            _listMovies.Items.Clear(); // call clear 
+            _listMovies.Items.AddRange(movies); //Addrange method require array 
+        }
+        private Movie GetSelectedMovie()
+        {
+            return _listMovies.SelectedItem as Movie; //copy from delete
+            
+        }
+
+        private void OnMovieDelete( object sender, EventArgs e ) // to delete the movie 
+        {
+            var item = GetSelectedMovie(); // force item object as Movie type, SelectedItem Property => require to select item 
+            if (item == null)
+                return;
+
+            _database.Remove(item.Name);
+            RefreshMovies();
+        }
+
+        private void OnMovieEdit( object sender, EventArgs e ) //start with copy from Add
+        {
+
+            var item = GetSelectedMovie(); //copy from delete 
+            if (item == null)
+                return;
+
+            var form = new MovieForm(); //copy from add
+            form.Movie = item;
+            if (form.ShowDialog(this) == DialogResult.Cancel)  
+                return;
+           
+            _database.Edit(item.Name, form.Movie);
+            RefreshMovies();
+        }
     }
 }

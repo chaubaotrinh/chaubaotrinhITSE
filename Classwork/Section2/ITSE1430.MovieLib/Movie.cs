@@ -112,5 +112,6 @@ namespace ITSE1430.MovieLib
             get { return ReleaseYear > 1940; }  // no setter => nobody can write
         }
 
+        public bool IsOwned { get; set; } // check box is boolean value 
     }
 }

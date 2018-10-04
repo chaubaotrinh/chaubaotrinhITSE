@@ -38,6 +38,7 @@
             this._RunLength = new System.Windows.Forms.TextBox();
             this._bttSave = new System.Windows.Forms.Button();
             this._bttCancel = new System.Windows.Forms.Button();
+            this._chkOwned = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -107,7 +108,7 @@
             // 
             // _bttSave
             // 
-            this._bttSave.Location = new System.Drawing.Point(91, 266);
+            this._bttSave.Location = new System.Drawing.Point(91, 292);
             this._bttSave.Name = "_bttSave";
             this._bttSave.Size = new System.Drawing.Size(75, 23);
             this._bttSave.TabIndex = 8;
@@ -117,7 +118,7 @@
             // 
             // _bttCancel
             // 
-            this._bttCancel.Location = new System.Drawing.Point(172, 266);
+            this._bttCancel.Location = new System.Drawing.Point(181, 292);
             this._bttCancel.Name = "_bttCancel";
             this._bttCancel.Size = new System.Drawing.Size(75, 23);
             this._bttCancel.TabIndex = 9;
@@ -125,12 +126,23 @@
             this._bttCancel.UseVisualStyleBackColor = true;
             this._bttCancel.Click += new System.EventHandler(this.OnCancel);
             // 
+            // _chkOwned
+            // 
+            this._chkOwned.AutoSize = true;
+            this._chkOwned.Location = new System.Drawing.Point(91, 255);
+            this._chkOwned.Name = "_chkOwned";
+            this._chkOwned.Size = new System.Drawing.Size(66, 17);
+            this._chkOwned.TabIndex = 10;
+            this._chkOwned.Text = "Owned?";
+            this._chkOwned.UseVisualStyleBackColor = true;
+            // 
             // MovieForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(496, 416);
+            this.ClientSize = new System.Drawing.Size(496, 444);
             this.ControlBox = false;
+            this.Controls.Add(this._chkOwned);
             this.Controls.Add(this._bttCancel);
             this.Controls.Add(this._bttSave);
             this.Controls.Add(this._RunLength);
@@ -144,6 +156,7 @@
             this.Name = "MovieForm";
             this.ShowInTaskbar = false;
             this.Text = "Movie Details";
+            this.Load += new System.EventHandler(this.MovieForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -161,5 +174,6 @@
         private System.Windows.Forms.TextBox _RunLength;
         private System.Windows.Forms.Button _bttSave;
         private System.Windows.Forms.Button _bttCancel;
+        private System.Windows.Forms.CheckBox _chkOwned;
     }
 }

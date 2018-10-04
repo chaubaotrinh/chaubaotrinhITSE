@@ -17,8 +17,8 @@ namespace ITSE1430.MovieLib.UI
             InitializeComponent();
         }
 
-        public Movie Movie;   //declare a field to store a movie inside of class and outside all other functions, type and field have the same name
-
+        //public Movie Movie;   //declare a field to store a movie inside of class and outside all other functions, type and field have the same name
+        public Movie Movie { get; set; } // change field to property 
         private void OnCancel( object sender, EventArgs e )
         {
             DialogResult = DialogResult.Cancel;
@@ -50,6 +50,7 @@ namespace ITSE1430.MovieLib.UI
             if (movie.RunLength < 0)
                 return;
 
+            movie.IsOwned = _chkOwned.Checked;
             Movie = movie;
             
             DialogResult = DialogResult.OK;  // if click save => return ok
@@ -65,6 +66,19 @@ namespace ITSE1430.MovieLib.UI
                 return value;
 
             return -1; // why -1
+        }
+
+        private void MovieForm_Load( object sender, EventArgs e )
+        {
+            if (Movie != null)
+            {
+                _txtName.Text = Movie.Name;
+                _txtDescription.Text = Movie.Description;
+                _ReleasedYear.Text = Movie.ReleaseYear.ToString();
+                _RunLength.Text = Movie.RunLength.ToString();
+                _chkOwned.Checked = Movie.IsOwned;
+            };
+
         }
     }
 }
