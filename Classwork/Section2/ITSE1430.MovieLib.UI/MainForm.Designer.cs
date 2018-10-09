@@ -64,7 +64,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -113,7 +113,7 @@
             // 
             this._miHelpAbout.Name = "_miHelpAbout";
             this._miHelpAbout.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this._miHelpAbout.Size = new System.Drawing.Size(126, 22);
+            this._miHelpAbout.Size = new System.Drawing.Size(152, 22);
             this._miHelpAbout.Text = "About";
             this._miHelpAbout.Click += new System.EventHandler(this.OnHelpAbout);
             // 
@@ -125,6 +125,8 @@
             this._listMovies.Name = "_listMovies";
             this._listMovies.Size = new System.Drawing.Size(552, 374);
             this._listMovies.TabIndex = 1;
+            this._listMovies.DoubleClick += new System.EventHandler(this.OnMovieDoubleClick);
+            this._listMovies.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnListKeyUp);
             // 
             // MainForm
             // 
@@ -137,7 +139,6 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Movie Library";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this._mainMenu.ResumeLayout(false);
             this._mainMenu.PerformLayout();
             this.ResumeLayout(false);

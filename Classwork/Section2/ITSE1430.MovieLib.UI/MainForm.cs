@@ -12,7 +12,10 @@ namespace ITSE1430.MovieLib.UI
 {
     public partial class MainForm : Form
     {
-        public MainForm()  
+        
+   
+
+        public MainForm()  // constructor: name = name of class, and no return type even void, can have or not parameter 
         {
             InitializeComponent();
         }
@@ -54,14 +57,9 @@ namespace ITSE1430.MovieLib.UI
 
         //private Movie Movie;
         //private Movie[] _movies = new Movie[100]; // change to array 
-        private MovieDatabase _database = new MovieLib.MovieDatabase();
+        private MovieDatabase _database = new MovieDatabase();
 
-        private void MainForm_Load( object sender, EventArgs e ) //from caption bar, double click 
-        {
-            _listMovies.DisplayMember = "Name";  //displayMember property => show name 
-            RefreshMovies();
-            
-        }
+       
         private void RefreshMovies()
         {
             var movies = _database.GetAll();
@@ -77,6 +75,47 @@ namespace ITSE1430.MovieLib.UI
 
         private void OnMovieDelete( object sender, EventArgs e ) // to delete the movie 
         {
+            DeleteMovie();
+        }
+
+        private void OnMovieEdit( object sender, EventArgs e ) //start with copy from Add
+        {
+
+            EditMovie();
+        }
+
+        private void OnMovieDoubleClick( object sender, EventArgs e )
+        {
+            //var control = sender as ListBox;
+            //var item = control.SelectedItem as Movie;
+            EditMovie();
+        }
+
+        private void EditMovie()
+        {
+            var item = GetSelectedMovie(); //copy from delete 
+            if (item == null)
+                return;
+
+            var form = new MovieForm(); //copy from add
+            form.Movie = item;
+            if (form.ShowDialog(this) == DialogResult.Cancel)
+                return;
+
+            _database.Edit(item.Name, form.Movie);
+            RefreshMovies();
+        }
+
+        private void OnListKeyUp( object sender, KeyEventArgs e )
+        {
+            if (e.KeyData == Keys.Delete)
+            {
+                DeleteMovie();
+            };
+        }
+
+        private void DeleteMovie()
+        {
             var item = GetSelectedMovie(); // force item object as Movie type, SelectedItem Property => require to select item 
             if (item == null)
                 return;
@@ -85,20 +124,30 @@ namespace ITSE1430.MovieLib.UI
             RefreshMovies();
         }
 
-        private void OnMovieEdit( object sender, EventArgs e ) //start with copy from Add
+        //This method can be overriden in a derived type
+        protected virtual void SomeFunction()  //virtual method - based implementation may be overriden 
         {
 
-            var item = GetSelectedMovie(); //copy from delete 
-            if (item == null)
-                return;
+        }
 
-            var form = new MovieForm(); //copy from add
-            form.Movie = item;
-            if (form.ShowDialog(this) == DialogResult.Cancel)  
-                return;
-           
-            _database.Edit(item.Name, form.Movie);
+        //This method MUST BE defined in a derived type 
+        //protected abstract void SomeAbstractFunction()
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+
+        protected override void OnLoad( EventArgs e )  //derived method. Start with override keyword 
+        {
+            base.OnLoad(e); // base type. Without base., the method call itself
+
+            _listMovies.DisplayMember = "Name";  //displayMember property => show name 
             RefreshMovies();
         }
+
+       
     }
+
+
 }

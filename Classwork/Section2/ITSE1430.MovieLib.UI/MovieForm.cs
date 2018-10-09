@@ -25,7 +25,7 @@ namespace ITSE1430.MovieLib.UI
             Close(); //close function to close the form 
         }
 
-        private void OnSave( object sender, EventArgs e )
+        private void OnSave( object sender, EventArgs e )  //EVENTS
         {
             var movie = new Movie();   //new: to create the instance of the object
             // if you next do movie = new Movie(); => delete line above
