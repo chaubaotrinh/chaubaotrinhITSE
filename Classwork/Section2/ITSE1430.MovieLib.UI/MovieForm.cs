@@ -27,6 +27,9 @@ namespace ITSE1430.MovieLib.UI
 
         private void OnSave( object sender, EventArgs e )  //EVENTS
         {
+            if (!ValidateChildren()) //validate children in form 
+                return;
+
             var movie = new Movie();   //new: to create the instance of the object
             // if you next do movie = new Movie(); => delete line above
             //var movie2 = new Movie(); // => to create a new set of Movie(), not lose the previous one 
@@ -60,7 +63,7 @@ namespace ITSE1430.MovieLib.UI
         private int GetInt32(TextBox textBox)
         {
             if (String.IsNullOrEmpty(textBox.Text))
-                return 0;
+                return -1;
 
             if (Int32.TryParse(textBox.Text, out var value))
                 return value;
@@ -78,6 +81,46 @@ namespace ITSE1430.MovieLib.UI
                 _RunLength.Text = Movie.RunLength.ToString();
                 _chkOwned.Checked = Movie.IsOwned;
             };
+            ValidateChildren(); //validate all children
+        }
+
+        private void OnValidateName( object sender, CancelEventArgs e )
+        {
+            var control = sender as TextBox;
+
+            if (String.IsNullOrEmpty(control.Text))
+            {
+                //control.Error
+                _errors.SetError(control, "Name is required");
+                e.Cancel = true;
+            } else
+                _errors.SetError(control, "");
+        }
+
+        private void OnValidateReleaseYear( object sender, CancelEventArgs e )
+        {
+            var control = sender as TextBox;
+            var result = GetInt32(control);
+            if (result < 0)
+            {
+                _errors.SetError(control, "Must be > 0");
+                e.Cancel = true;
+            }
+            else
+                _errors.SetError(control, "");
+
+        }
+
+        private void OnValidateRunLength( object sender, CancelEventArgs e )
+        {
+            var control = sender as TextBox;
+            var result = GetInt32(control);
+            if (result < 1900)
+            {
+                _errors.SetError(control, "Must be > 1900");
+                e.Cancel = true;
+            } else
+                _errors.SetError(control, "");
 
         }
     }
