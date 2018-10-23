@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -30,30 +31,45 @@ namespace ITSE1430.MovieLib.UI
             if (!ValidateChildren()) //validate children in form 
                 return;
 
-            var movie = new Movie();   //new: to create the instance of the object
-            // if you next do movie = new Movie(); => delete line above
-            //var movie2 = new Movie(); // => to create a new set of Movie(), not lose the previous one 
-            //var name = movie2.GetName();
+            //Initialize syntax
+            var movie = new Movie()     //new: to create the instance of the object
+            {                          // if you next do movie = new Movie(); => delete line above
+                                       //var movie2 = new Movie(); // => to create a new set of Movie(), not lose the previous one 
+                                       //var name = movie2.GetName();
 
-            movie.Name = _txtName.Text;
+
+                Name = _txtName.Text,
             //Name is required
             //movie.SetName (_txtName.Text);
-            if (String.IsNullOrEmpty(movie.Name))
-                return;
-            movie.Description = _txtDescription.Text;
+            //if (String.IsNullOrEmpty(movie.Name))
+            //    return;
+                Description = _txtDescription.Text,
             //movie.SetDescription (_txtDescription.Text);
 
             //Released year is numeric, if set
-            movie.ReleaseYear=( GetInt32(_ReleasedYear));
-            if (movie.ReleaseYear < 0)
-                return;
+                ReleaseYear= GetInt32(_ReleasedYear),
+            //if (movie.ReleaseYear < 0)
+            //    return;
 
             //Run Length, if set
-            movie.RunLength = ( GetInt32(_RunLength));
-            if (movie.RunLength < 0)
-                return;
+                RunLength = GetInt32(_RunLength),
+            //if (movie.RunLength < 0)
+            //    return;
 
-            movie.IsOwned = _chkOwned.Checked;
+                IsOwned = _chkOwned.Checked,
+            };
+
+            //Validator.TryValidateObject()
+            var results = ObjectValidator.Validate(movie);
+            if (results.Count > 0)
+            {
+                var firstMessage = results[0];
+                MessageBox.Show(this, firstMessage.ErrorMessage, "Validation Failed", MessageBoxButtons.OK);
+
+                return;
+            };
+
+
             Movie = movie;
             
             DialogResult = DialogResult.OK;  // if click save => return ok

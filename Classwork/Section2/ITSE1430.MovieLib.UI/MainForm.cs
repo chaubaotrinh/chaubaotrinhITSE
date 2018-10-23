@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ITSE1430.MovieLib.Memory;
 
 namespace ITSE1430.MovieLib.UI
 {
@@ -57,7 +58,7 @@ namespace ITSE1430.MovieLib.UI
 
         //private Movie Movie;
         //private Movie[] _movies = new Movie[100]; // change to array 
-        private MovieDatabase _database = new MovieDatabase();
+        private MovieDatabase _database = new MemoryMovieDatabase();
 
        
         private void RefreshMovies()
@@ -65,6 +66,9 @@ namespace ITSE1430.MovieLib.UI
             var movies = _database.GetAll();
 
             _listMovies.Items.Clear(); // call clear 
+            foreach (var movie in movies)
+                _listMovies.Items.Add(movie);
+
             _listMovies.Items.AddRange(movies); //Addrange method require array 
         }
         private Movie GetSelectedMovie()
@@ -140,9 +144,13 @@ namespace ITSE1430.MovieLib.UI
 
         protected override void OnLoad( EventArgs e )  //derived method. Start with override keyword 
         {
-            base.OnLoad(e); // base type. Without base., the method call itself
+            base.OnLoad(e);
 
-            _listMovies.DisplayMember = "Name";  //displayMember property => show name 
+            //Seed database
+            //var seed = new SeedDatabase();
+            SeedDatabase.Seed(_database);
+
+            _listMovies.DisplayMember = "Name";
             RefreshMovies();
         }
 
