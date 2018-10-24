@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ITSE1430.MovieLib
 {
-    public static class SeedDatabase
+    public static class MovieDatabaseExtensions 
     {
-        public static void Seed( MovieDatabase database )
+        public static void Seed( this IMovieDatabase source )  //extension method 
         {
             var movies = new[] {
                 new Movie() {
@@ -22,12 +22,12 @@ namespace ITSE1430.MovieLib
                     ReleaseYear = 2004,
                 },
             };
-            Seed(database, movies);
+            Seed(source, movies);
         }
-        public static void Seed( MovieDatabase database, Movie[] movies )
+        public static void Seed( this IMovieDatabase source, Movie[] movies ) //to qualify extention method: in static class, members are public and static, "this" before first parameter named "source"
         {
             foreach (var movie in movies)
-                database.Add(movie);
+                source.Add(movie);
         }
 
     }

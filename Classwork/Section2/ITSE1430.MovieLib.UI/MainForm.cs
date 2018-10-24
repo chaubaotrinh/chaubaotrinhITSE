@@ -21,7 +21,7 @@ namespace ITSE1430.MovieLib.UI
             InitializeComponent();
         }
 
-        private void exitToolStripMenuItem_Click( object sender, EventArgs e )
+        private void OnFileExit( object sender, EventArgs e )
         {
             //call close function 
             if (MessageBox.Show("Are you sure you want to exit?", "Close", MessageBoxButtons.YesNo) == DialogResult.No)
@@ -66,10 +66,10 @@ namespace ITSE1430.MovieLib.UI
             var movies = _database.GetAll();
 
             _listMovies.Items.Clear(); // call clear 
-            foreach (var movie in movies)
-                _listMovies.Items.Add(movie);
+            //foreach (var movie in movies)
+            //    _listMovies.Items.Add(movie);
 
-            _listMovies.Items.AddRange(movies); //Addrange method require array 
+            _listMovies.Items.AddRange(movies.ToArray()); //Addrange method require array 
         }
         private Movie GetSelectedMovie()
         {
@@ -148,7 +148,8 @@ namespace ITSE1430.MovieLib.UI
 
             //Seed database
             //var seed = new SeedDatabase();
-            SeedDatabase.Seed(_database);
+            //SeedDatabase.Seed(_database);  Call SeedDatabase. Type of _database: interface 
+            _database.Seed();
 
             _listMovies.DisplayMember = "Name";
             RefreshMovies();

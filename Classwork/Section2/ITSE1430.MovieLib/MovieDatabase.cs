@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ITSE1430.MovieLib
 {
-    public abstract class MovieDatabase //create new class to store the movie 
+    public abstract class MovieDatabase : IMovieDatabase //create new class to store the movie 
     {
        
         public void Add( Movie movie )
@@ -27,8 +27,8 @@ namespace ITSE1430.MovieLib
             return GetAllCore();
         }
 
-        protected abstract Movie[] GetAllCore();
-       
+        protected abstract IEnumerable<Movie> GetAllCore();
+
 
         public void Edit (string name, Movie movie)
         {

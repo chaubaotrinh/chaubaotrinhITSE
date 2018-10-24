@@ -184,7 +184,7 @@ namespace ITSE1430.MovieLib
 
         public bool IsOwned { get; set; }
 
-        public IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
+        public IEnumerable<ValidationResult> Validate( ValidationContext validationContext ) //must be public 
         {
             //var results = new List<ValidationResult>();
 
