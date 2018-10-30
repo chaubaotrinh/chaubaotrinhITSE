@@ -152,8 +152,10 @@ namespace ITSE1430.MovieLib
         //Property to back the name field
         public string Name
         {
-            get { return _name ?? ""; }  // string get ()
-            set { _name = value; }       // void set ( string value )
+            get => _name ?? "";  
+            set => _name = value;
+            //lambda replace     //get { return _name ?? ""; }  // string get ()
+                                 //set { _name = value; }       // void set ( string value )
         }
 
         //Backing field for name
@@ -177,10 +179,12 @@ namespace ITSE1430.MovieLib
         public int Id { get; private set; }
 
         //Using calculated property with no setter
-        public bool IsColor
-        {
-            get { return ReleaseYear > 1940; }
-        }
+        public bool IsColor => ReleaseYear > 1940; 
+        // if get/read property only, lambda doesnt need { } like below
+        //{
+        //    //get { return ReleaseYear > 1940; }
+        //    get => ReleaseYear > 1940;
+        //}
 
         public bool IsOwned { get; set; }
 

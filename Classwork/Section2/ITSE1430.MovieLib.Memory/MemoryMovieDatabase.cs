@@ -161,13 +161,14 @@ namespace ITSE1430.MovieLib.Memory
     {
         /// <summary>Adds a movie to the database.</summary>
         /// <param name="movie">The movie to add.</param>
-        protected override void AddCore( Movie movie )
-        {
-            _items.Add(movie);
-            //var index = FindNextFreeIndex();
-            //if (index >= 0)
-            //    _movies[index] = movie;
-        }
+        protected override void AddCore( Movie movie ) => _items.Add(movie);
+        //lambda replaces the code below
+        //{
+        //    _items.Add(movie);
+        //    //var index = FindNextFreeIndex();
+        //    //if (index >= 0)
+        //    //    _movies[index] = movie;
+        //}
 
         /// <summary>Gets all the movies.</summary>
         /// <returns>The list of movies.</returns>
@@ -177,42 +178,65 @@ namespace ITSE1430.MovieLib.Memory
 
             //return _items;
 
+            //Use LINQ to clone movies
+            //return _items.Select(Clone);
+            //using lambda, LINQ syntax: from .. in ..where ...orderby ..select
 
-            return _items.Select(Clone);
-            //foreach (var item in _items)
-            //    yield return new Movie()
-            //    {
-            //        Name = item.Name,
-            //        Description = item.Description,
-            //        ReleaseYear = item.ReleaseYear,
-            //        RunLength = item.RunLength,
-            //        IsOwned = item.IsOwned
-            //    };
+            return from item in _items
+                    //where 
+                    select new Movie()
+                    {
+                        Name = item.Name,
+                        Description = item.Description,
+                        ReleaseYear = item.ReleaseYear,
+                        RunLength = item.RunLength,
+                        IsOwned = item.IsOwned
+                    };
 
-            //How many movies do we have
-            //var count = _items.Count;
+                //return _items.Select(item => new Movie()
+                //{
+                //    Name = item.Name,
+                //    Description = item.Description,
+                //    ReleaseYear = item.ReleaseYear,
+                //    RunLength = item.RunLength,
+                //    IsOwned = item.IsOwned
+                //});
 
-            //var temp = new Movie[count];
-            //var index = 0;
-            //foreach (var movie in _items)
-            //{
-            //    temp[index++] = movie;
-            //};
 
-            //return temp;
-        }
+                //foreach (var item in _items)
+                //    yield return new Movie()
+                //    {
+                //        Name = item.Name,
+                //        Description = item.Description,
+                //        ReleaseYear = item.ReleaseYear,
+                //        RunLength = item.RunLength,
+                //        IsOwned = item.IsOwned
+                //    };
 
-        private Movie Clone (Movie item )
-        {
-            return new Movie()
-            {
-                Name = item.Name,
-                Description = item.Description,
-                ReleaseYear = item.ReleaseYear,
-                RunLength = item.RunLength,
-                IsOwned = item.IsOwned
-            };
-        }
+                //How many movies do we have
+                //var count = _items.Count;
+
+                //var temp = new Movie[count];
+                //var index = 0;
+                //foreach (var movie in _items)
+                //{
+                //    temp[index++] = movie;
+                //};
+
+                //return temp;
+            }
+
+        //private Movie Clone (Movie item )
+        //{
+        //    return new Movie()
+        //    {
+        //        Name = item.Name,
+        //        Description = item.Description,
+        //        ReleaseYear = item.ReleaseYear,
+        //        RunLength = item.RunLength,
+        //        IsOwned = item.IsOwned
+        //    };
+        //}
 
         /// <summary>Edits an existing movie.</summary>
         /// <param name="name">The movie to edit.</param>
@@ -250,18 +274,25 @@ namespace ITSE1430.MovieLib.Memory
             //        return movie;
             //};
 
-            return _items.FirstOrDefault(IsName); // to get the first item 
+            //lambda
+            //return _items.FirstOrDefault(m => String.Compare(name, m.Name, true) == 0); // to get the first item 
+
+            //LINQ
+            return (from m in _items
+                   where String.Compare(name, m.Name, true) == 0
+                   select m).FirstOrDefault();  //combine LINQ to extention method: need ().FirstOrDefault() 
 
             //return null;
         }
+        //lambda replace this functin 
 
-        private bool IsName (Movie movie)
-        {
-            if (String.Compare(name, movie.Name, true) == 0)
-                return true;
+        //private bool IsName (Movie movie)
+        //{
+        //    if (String.Compare(name, movie.Name, true) == 0)
+        //        return true;
 
-            return false;
-        }
+        //    return false;
+        //}
 
         //private Movie[] _movies = new Movie[100];
         private List<Movie> _items = new List<Movie>();
