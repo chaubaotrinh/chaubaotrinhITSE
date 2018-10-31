@@ -151,6 +151,7 @@ namespace ITSE1430.MovieLib.UI
         protected override void OnLoad( EventArgs e )  //derived method. Start with override keyword 
         {
             base.OnLoad(e);
+            _database.Add(new Movie());
 
             //Seed database
             //var seed = new SeedDatabase();
