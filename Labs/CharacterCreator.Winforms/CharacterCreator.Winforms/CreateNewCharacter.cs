@@ -37,7 +37,7 @@ namespace CharacterCreator.Winforms
             ValidateChildren();
 
         }
-
+        
         private void OnCancel( object sender, EventArgs e )
         {
             DialogResult = DialogResult.Cancel;
