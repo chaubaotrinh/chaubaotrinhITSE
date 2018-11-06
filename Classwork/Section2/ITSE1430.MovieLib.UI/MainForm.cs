@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ITSE1430.MovieLib.Memory;
+using ITSE1430.MovieLib.Sql;
 
 namespace ITSE1430.MovieLib.UI
 {
@@ -45,20 +46,47 @@ namespace ITSE1430.MovieLib.UI
 
             if (form.ShowDialog(this) == DialogResult.Cancel)  //after Cancel codes in MovieForm
                 return;
-                                //form.ShowDialog(); => show model window => can't interact with main/parent window => Alt F4 to exist 
-                                //form.Show();  // show modeless window => can interact with main window 
+            //form.ShowDialog(); => show model window => can't interact with main/parent window => Alt F4 to exist 
+            //form.Show();  // show modeless window => can interact with main window 
 
 
-                                //MessageBox.Show("Adding movie");
-                                //_movies[0] = form.Movie;
-            _database.Add(form.Movie);
+            //MessageBox.Show("Adding movie");
+            //_movies[0] = form.Movie;
+
+            //Add to database and refresh
+            
+            try
+            {
+                _database.Add(form.Movie);
+            /*} catch (ArgumentException ex) //more specific than the next catch 
+            {
+                MessageBox.Show("Programmer messed up", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                //Throw a different exception 
+                throw new InvalidOperationException("Programmer messed up");
+            */
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                //Log failure 
+                //Crash app
+                //throw ex;
+
+                //Rethrow: will use the most 
+                //throw;
+            }
+
+            
+
+
             RefreshMovies();
                                 //Movie.Name = "";
         }
 
         //private Movie Movie;
         //private Movie[] _movies = new Movie[100]; // change to array 
-        private MovieDatabase _database = new MemoryMovieDatabase();
+        private IMovieDatabase _database = new SqlMovieDatabase();
 
        
         private void RefreshMovies()
@@ -86,6 +114,7 @@ namespace ITSE1430.MovieLib.UI
         private void OnMovieDelete( object sender, EventArgs e ) // to delete the movie 
         {
             DeleteMovie();
+           
         }
 
         private void OnMovieEdit( object sender, EventArgs e ) //start with copy from Add
@@ -111,8 +140,16 @@ namespace ITSE1430.MovieLib.UI
             form.Movie = item;
             if (form.ShowDialog(this) == DialogResult.Cancel)
                 return;
-
-            _database.Edit(item.Name, form.Movie);
+            
+            //Update database and refresh
+            try
+            {
+                _database.Edit(item.Name, form.Movie);
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            };
+            
             RefreshMovies();
         }
 
@@ -130,7 +167,14 @@ namespace ITSE1430.MovieLib.UI
             if (item == null)
                 return;
 
-            _database.Remove(item.Name);
+            try
+            {
+                _database.Remove(item.Name);
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            };
+            
             RefreshMovies();
         }
 
@@ -151,12 +195,12 @@ namespace ITSE1430.MovieLib.UI
         protected override void OnLoad( EventArgs e )  //derived method. Start with override keyword 
         {
             base.OnLoad(e);
-            _database.Add(new Movie());
+            //_database.Add(new Movie());
 
             //Seed database
             //var seed = new SeedDatabase();
             //SeedDatabase.Seed(_database);  Call SeedDatabase. Type of _database: interface 
-            _database.Seed();
+            //_database.Seed();
 
             _listMovies.DisplayMember = "Name";
             RefreshMovies();

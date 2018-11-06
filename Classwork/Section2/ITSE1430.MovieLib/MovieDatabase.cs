@@ -15,13 +15,18 @@ namespace ITSE1430.MovieLib
             if (movie == null)
                 throw new ArgumentNullException("movie");
             ObjectValidator.Validate(movie);
-            
-            //TODO: Validate
-            //if (movie == null)
-            //    return;
-            // Add to database
 
-            AddCore(movie);
+            //if (movie == null) return;
+            try
+            {
+                AddCore(movie);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Add failed", e);
+            };
+
+            
 
         }
 

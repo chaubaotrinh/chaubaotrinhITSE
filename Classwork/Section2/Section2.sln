@@ -9,7 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITSE1430.MovieLib", "ITSE14
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITSE1430.MovieLib.Memory", "ITSE1430.MovieLib.Memory\ITSE1430.MovieLib.Memory.csproj", "{E76891BA-3987-4813-AFAD-376DA81946D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayWithLinq", "PlayWithLinq\PlayWithLinq.csproj", "{37AAC4B2-120F-4A71-A21E-779C6B195FB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlayWithLinq", "PlayWithLinq\PlayWithLinq.csproj", "{37AAC4B2-120F-4A71-A21E-779C6B195FB5}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MovieDatabase", "..\MovieDatabase\MovieDatabase.sqlproj", "{D336CD26-C9B8-4B7F-83E7-2F951DF1FABC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITSE1430.MovieLib.Sql", "ITSE1430.MovieLib.Sql\ITSE1430.MovieLib.Sql.csproj", "{31FE1D52-68B5-4EC8-8713-3BA2C65D465F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,16 @@ Global
 		{37AAC4B2-120F-4A71-A21E-779C6B195FB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37AAC4B2-120F-4A71-A21E-779C6B195FB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37AAC4B2-120F-4A71-A21E-779C6B195FB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D336CD26-C9B8-4B7F-83E7-2F951DF1FABC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D336CD26-C9B8-4B7F-83E7-2F951DF1FABC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D336CD26-C9B8-4B7F-83E7-2F951DF1FABC}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{D336CD26-C9B8-4B7F-83E7-2F951DF1FABC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D336CD26-C9B8-4B7F-83E7-2F951DF1FABC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D336CD26-C9B8-4B7F-83E7-2F951DF1FABC}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{31FE1D52-68B5-4EC8-8713-3BA2C65D465F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31FE1D52-68B5-4EC8-8713-3BA2C65D465F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31FE1D52-68B5-4EC8-8713-3BA2C65D465F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31FE1D52-68B5-4EC8-8713-3BA2C65D465F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
