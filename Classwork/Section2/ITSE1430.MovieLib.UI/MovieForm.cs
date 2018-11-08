@@ -118,9 +118,9 @@ namespace ITSE1430.MovieLib.UI
         {
             var control = sender as TextBox;
             var result = GetInt32(control);
-            if (result < 0)
+            if (result < 1900)
             {
-                _errors.SetError(control, "Must be > 0");
+                _errors.SetError(control, "Must be > 1900");
                 e.Cancel = true;
             }
             else
@@ -132,9 +132,9 @@ namespace ITSE1430.MovieLib.UI
         {
             var control = sender as TextBox;
             var result = GetInt32(control);
-            if (result < 1900)
+            if (result < 0)
             {
-                _errors.SetError(control, "Must be > 1900");
+                _errors.SetError(control, "Must be > 0");
                 e.Cancel = true;
             } else
                 _errors.SetError(control, "");

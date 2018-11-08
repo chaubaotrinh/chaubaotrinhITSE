@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -86,7 +87,8 @@ namespace ITSE1430.MovieLib.UI
 
         //private Movie Movie;
         //private Movie[] _movies = new Movie[100]; // change to array 
-        private IMovieDatabase _database = new SqlMovieDatabase();
+        private IMovieDatabase _database; // = new SqlMovieDatabase();
+
 
        
         private void RefreshMovies()
@@ -195,6 +197,11 @@ namespace ITSE1430.MovieLib.UI
         protected override void OnLoad( EventArgs e )  //derived method. Start with override keyword 
         {
             base.OnLoad(e);
+
+            var connString = ConfigurationManager
+                                 .ConnectionStrings["Database"]
+                                 .ConnectionString;
+            _database = new SqlMovieDatabase(connString);
             //_database.Add(new Movie());
 
             //Seed database
