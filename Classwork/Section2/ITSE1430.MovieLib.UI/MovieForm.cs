@@ -60,7 +60,7 @@ namespace ITSE1430.MovieLib.UI
             };
 
             //Validator.TryValidateObject()
-            var results = ObjectValidator.TryValidate(movie);
+            var results = ObjectValidator.Validate(movie);
             //if (results.Count > 0)
             foreach (var result in results )
             {

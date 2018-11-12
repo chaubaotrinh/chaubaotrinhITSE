@@ -165,6 +165,7 @@
             // _listMessages
             // 
             this._listMessages.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._listMessages.Enabled = false;
             this._listMessages.FormattingEnabled = true;
             this._listMessages.ItemHeight = 20;
             this._listMessages.Location = new System.Drawing.Point(0, 0);
