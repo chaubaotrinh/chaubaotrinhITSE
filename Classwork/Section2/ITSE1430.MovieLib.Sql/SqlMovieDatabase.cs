@@ -105,6 +105,7 @@ namespace ITSE1430.MovieLib.Sql
             };
         }
 
+        //Gets the ID if this is a SQL movie
         private object GetMovieId( Movie movie )
         {
             var sql = movie as SqlMovie;
@@ -114,8 +115,37 @@ namespace ITSE1430.MovieLib.Sql
 
         protected override Movie FindByName( string name )
         {
+            //Use a data reader
+            using (var conn = CreateConnection())
+            {
+                var cmd = new SqlCommand("GetAllMovies", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
 
-            throw new NotImplementedException();
+                conn.Open();
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while(reader.Read()) //read data
+                    {
+                        var movieName = reader.GetString(1);
+                        if (String.Compare(movieName, name, true) != 0)
+                            continue;
+
+                        reader.GetOrdinal("Id");
+
+                        return new SqlMovie()
+                        {
+                            Id = reader.GetFieldValue<int>(0), //0 index
+                            Name = movieName,
+                            Description = Convert.ToString(reader.GetValue(2)),
+                            ReleaseYear = 1900,
+                            RunLength = reader.GetFieldValue<int>(3),
+                            IsOwned = reader.GetBoolean(4),
+                        };
+                    };
+                };
+
+                return null;
+            };
         }
 
         protected override IEnumerable<Movie> GetAllCore()
@@ -128,6 +158,7 @@ namespace ITSE1430.MovieLib.Sql
                 var cmd = new SqlCommand("GetAllMovies", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
+                //Use data adapter to fill dataset
                 da.SelectCommand = cmd;
                 da.Fill(ds);
             };
@@ -183,7 +214,7 @@ namespace ITSE1430.MovieLib.Sql
         }
             private SqlConnection CreateConnection() => new SqlConnection(_connectionString);
 
-        //Gets the ID if this is a SQL movie
+       
        
     }
 }
