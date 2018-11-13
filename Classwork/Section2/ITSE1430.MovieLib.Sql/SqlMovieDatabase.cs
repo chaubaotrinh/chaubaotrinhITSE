@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -63,7 +64,7 @@ namespace ITSE1430.MovieLib.Sql
             //    conn.Close();
             //}
 
-            using (var conn = CreatConnection())
+            using (var conn = CreateConnection())
             {
                 var cmd = new SqlCommand("AddMovie", conn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -84,7 +85,7 @@ namespace ITSE1430.MovieLib.Sql
 
         protected override void EditCore( Movie oldMovie, Movie newMovie )
         {
-            using (var conn = CreatConnection())
+            using (var conn = CreateConnection())
             {
                 var cmd = conn.CreateCommand();
                 cmd.CommandText = "UpdateMovie";
@@ -104,20 +105,58 @@ namespace ITSE1430.MovieLib.Sql
             };
         }
 
-        private object GetMovieId( Movie oldMovie )
+        private object GetMovieId( Movie movie )
         {
-            return 1;
+            var sql = movie as SqlMovie;
+
+            return sql?.Id ?? 0;
         }
 
         protected override Movie FindByName( string name )
         {
+
             throw new NotImplementedException();
         }
 
         protected override IEnumerable<Movie> GetAllCore()
         {
+            var ds = new DataSet();
+
+            using (var conn = CreateConnection())
+            {
+                var da = new SqlDataAdapter();
+                var cmd = new SqlCommand("GetAllMovies", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                da.SelectCommand = cmd;
+                da.Fill(ds);
+            };
+
+            //Read data
+            //if (!ds.Tables.OfType<DataTable>().Any())
+            //    return Enumerable.Empty<Movie>();
+            var table = ds.Tables.OfType<DataTable>().FirstOrDefault();
+            if (table == null)
+                return Enumerable.Empty<Movie>();
+
+            var movies = new List<Movie>();
+            foreach (var row in table.Rows.OfType<DataRow>())
+            {
+                var movie = new SqlMovie()
+                {
+                    Id = Convert.ToInt32(row["Id"]),
+                    Name = row.Field<string>("Title"),
+                    Description = Convert.ToString(row[2]),
+                    ReleaseYear = 1900,
+                    RunLength = row.Field<int>(3),
+                    IsOwned = Convert.ToBoolean(row[4]),
+                };
+                movies.Add(movie);
+            };
+
+            return movies;
             //throw new NotImplementedException();
-            return new Movie[0]; //return an empty array
+            //return new Movie[0];
         }
 
         protected override void RemoveCore( string name )
@@ -127,7 +166,7 @@ namespace ITSE1430.MovieLib.Sql
             if (movie == null)
                 return;
 
-            using (var conn = CreatConnection())
+            using (var conn = CreateConnection())
             {
                 var cmd = conn.CreateCommand();
                 cmd.CommandText = "RemoveMovie";
@@ -142,6 +181,9 @@ namespace ITSE1430.MovieLib.Sql
 
             };
         }
-            private SqlConnection CreatConnection() => new SqlConnection(_connectionString);
+            private SqlConnection CreateConnection() => new SqlConnection(_connectionString);
+
+        //Gets the ID if this is a SQL movie
+       
     }
 }
