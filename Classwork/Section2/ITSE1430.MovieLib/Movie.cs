@@ -140,6 +140,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -147,9 +148,18 @@ using System.Threading.Tasks;
 
 namespace ITSE1430.MovieLib
 {
+    [Description("A movie.")] //apply for type Movie
     public class Movie : IValidatableObject
     {
         //Property to back the name field
+        //-Attribute is optional, compiler will add it
+        //() are optional when calling default constructor
+        //[Required] //Check null
+        ////[Required()]
+        //[StringLength(100, MinimumLength = 1)] //check empty 
+
+        //Combined for both null and empty checking 
+        [Required(AllowEmptyStrings =false)] //Applied for field
         public string Name
         {
             get => _name ?? "";  
@@ -170,9 +180,19 @@ namespace ITSE1430.MovieLib
         private string _description;
 
         //Using auto property with field initializer
+        [Range(1900, 2100, ErrorMessage = "Release year must be >= 1900.")]
+        //[Required] no longer need
+
+        //OR
+        //[RangeAttribute(1900, 2100)]
+        //[RequiredAttribute()]
+
+        //OR
+        //[RangeAttribute(1900, 2100), RequiredAttribute()]
         public int ReleaseYear { get; set; } = 1900;
 
         //Using auto property
+        [RangeAttribute(0, Int32.MaxValue, ErrorMessage = "Run length must be >= 0.")]
         public int RunLength { get; set; }
 
         //Using mixed accessibility
@@ -190,20 +210,26 @@ namespace ITSE1430.MovieLib
 
         public IEnumerable<ValidationResult> Validate( ValidationContext validationContext ) //must be public 
         {
+            
             //var results = new List<ValidationResult>();
 
-            if (String.IsNullOrEmpty(Name))
-                yield return new ValidationResult("Name is required.",
-                                new[] { nameof(Name) });
+            //if (String.IsNullOrEmpty(Name))
+            //    yield return new ValidationResult("Name is required.",
+            //                    new[] { nameof(Name) });
+            //after adding [RequiredAttribute] -- can't be null
 
-            if (ReleaseYear < 1900)
-                yield return new ValidationResult("Release year must be >= 1900",
-                                new[] { nameof(ReleaseYear) });
+            //if (ReleaseYear < 1900)
+            //    yield return new ValidationResult("Release year must be >= 1900",
+            //                    new[] { nameof(ReleaseYear) });
+            //after adding [RangeAttribute] -- in a range
 
-            if (RunLength < 0)
-                yield return new ValidationResult("Run length must be >= 0",
-                                new[] { nameof(RunLength) });
-        }
+            //if (RunLength < 0)
+            //    yield return new ValidationResult("Run length must be >= 0",
+            //                    new[] { nameof(RunLength) });
+            //after adding [RangeAttribute(0, Int32.MaxValue)]
+
+            yield return null;
+    }
 
 
         #region Unused Code

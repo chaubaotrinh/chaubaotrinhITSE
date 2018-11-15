@@ -15,6 +15,8 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MovieDatabase", "..\MovieDa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITSE1430.MovieLib.Sql", "ITSE1430.MovieLib.Sql\ITSE1430.MovieLib.Sql.csproj", "{31FE1D52-68B5-4EC8-8713-3BA2C65D465F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayWithReflection", "PlayWithReflection\PlayWithReflection.csproj", "{049049BE-9519-4C69-A51B-3E599340EE5B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{31FE1D52-68B5-4EC8-8713-3BA2C65D465F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31FE1D52-68B5-4EC8-8713-3BA2C65D465F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31FE1D52-68B5-4EC8-8713-3BA2C65D465F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{049049BE-9519-4C69-A51B-3E599340EE5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{049049BE-9519-4C69-A51B-3E599340EE5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{049049BE-9519-4C69-A51B-3E599340EE5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{049049BE-9519-4C69-A51B-3E599340EE5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

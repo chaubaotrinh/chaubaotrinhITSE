@@ -163,6 +163,7 @@ namespace ITSE1430.MovieLib.Memory
         /// <param name="movie">The movie to add.</param>
         protected override void AddCore( Movie movie )
         {
+            
             //throw new Exception("Failed");
             _items.Add(movie);
         }
