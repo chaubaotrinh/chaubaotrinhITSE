@@ -1,5 +1,8 @@
-/*
- * ITSE 1430
+/* 
+ * Student: Chau Trinh
+ * Class: ITSE 1430
+ * Lab 4: Nile
+ * Date: 19 Nov 2018
  */
 using System;
 using System.Collections.Generic;
@@ -15,8 +18,27 @@ namespace Nile.Stores
         public Product Add ( Product product )
         {
             //TODO: Check arguments
+            //Check null
+            if (product == null)
+                throw new ArgumentNullException("product");
+            //Check invalid 
+                
+            if (product.Name == null)
+                throw new ArgumentNullException("name");
+            else if (product.Name == "")
+                throw new ArgumentException("Name cannot be empty");
+
+            //Throw exception when add a product with same name fail 
+            var existing = GetCore(product.Id);
+            //if (product.Name == existing.Name)
+            //    throw new ArgumentException("This product already added.");
+
+            if (product.Price < 0)
+                throw new ArgumentOutOfRangeException("Price must be greater or equal to 0");
 
             //TODO: Validate product
+            ObjectValidator.Validate(product);
+
 
             //Emulate database by storing copy
             return AddCore(product);
@@ -27,6 +49,12 @@ namespace Nile.Stores
         public Product Get ( int id )
         {
             //TODO: Check arguments
+            if (id < 0 )
+                throw new ArgumentOutOfRangeException("ID is invalid.");
+
+            var existing = GetCore(id);
+            if (existing == null)
+                throw new Exception("Product not found.");
 
             return GetCore(id);
         }
@@ -43,6 +71,12 @@ namespace Nile.Stores
         public void Remove ( int id )
         {
             //TODO: Check arguments
+            if (id < 0)
+                throw new ArgumentOutOfRangeException("ID is invalid.");
+
+            var existing = GetCore(id);
+            if (existing == null)
+                throw new Exception("Product not found.");
 
             RemoveCore(id);
         }
@@ -53,11 +87,29 @@ namespace Nile.Stores
         public Product Update ( Product product )
         {
             //TODO: Check arguments
+                //Check null
+            if (product == null)
+                throw new ArgumentNullException("product");
+                //Check invalid 
+            if (product.Name == null)
+                throw new ArgumentNullException("name");
+            else if (product.Name == "")
+                throw new ArgumentException("Name cannot be empty");
 
+            if (product.Price < 0)
+                throw new ArgumentOutOfRangeException("Price must be greater or equal to )");
+   
             //TODO: Validate product
+            ObjectValidator.Validate(product);
 
             //Get existing product
             var existing = GetCore(product.Id);
+            if (existing == null)
+                throw new Exception("Product not found.");
+
+            //Update product to a new name fails, but using the same name works
+            if (product.Name != existing.Name)
+                throw new ArgumentException("You cannot change the name of product.");
 
             return UpdateCore(existing, product);
         }
@@ -73,6 +125,8 @@ namespace Nile.Stores
         protected abstract Product UpdateCore( Product existing, Product newItem );
 
         protected abstract Product AddCore( Product product );
+
+        protected abstract Product FindProduct( int id );
         #endregion
     }
 }

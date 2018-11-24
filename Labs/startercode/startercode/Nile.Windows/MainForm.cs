@@ -1,8 +1,14 @@
-/*
- * ITSE 1430
+/* 
+ * Student: Chau Trinh
+ * Class: ITSE 1430
+ * Lab 4: Nile
+ * Date: 19 Nov 2018
  */
 using System;
+using System.Configuration;
 using System.Windows.Forms;
+using Nile.Stores.Sql;
+using System.Linq;
 
 namespace Nile.Windows
 {
@@ -19,6 +25,10 @@ namespace Nile.Windows
         protected override void OnLoad( EventArgs e )
         {
             base.OnLoad(e);
+
+            var connString = ConfigurationManager.ConnectionStrings["ProductDatabase"].ConnectionString;
+
+            _database = new SqlProductDatabase(connString);
 
             _gridProducts.AutoGenerateColumns = false;
 
@@ -38,9 +48,16 @@ namespace Nile.Windows
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
 
-            //TODO: Handle errors
+            //TODO:
+            //Handle errors
+            try
+            {
+                _database.Add(child.Product);
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             //Save product
-            _database.Add(child.Product);
             UpdateList();
         }
 
@@ -105,8 +122,15 @@ namespace Nile.Windows
                 return;
 
             //TODO: Handle errors
+            try
+            {
+                _database.Remove(product.Id);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             //Delete product
-            _database.Remove(product.Id);
             UpdateList();
         }
 
@@ -118,8 +142,15 @@ namespace Nile.Windows
                 return;
 
             //TODO: Handle errors
+            try
+            {
+                _database.Update(child.Product);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             //Save product
-            _database.Update(child.Product);
             UpdateList();
         }
 
@@ -134,11 +165,26 @@ namespace Nile.Windows
         private void UpdateList ()
         {
             //TODO: Handle errors
+            try
+            {
+                _bsProducts.DataSource = _database.GetAll();
 
-            _bsProducts.DataSource = _database.GetAll();
+                
+            } catch (ArgumentNullException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
-        private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
+        //private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
+        private IProductDatabase _database; /*= new SqlProductDatabase();*/
         #endregion
+
+        private void OnHelpAbout( object sender, EventArgs e )
+        {
+            var child = new AboutForm();
+            if (child.ShowDialog(this) != DialogResult.OK)
+                return;
+        }
     }
 }
