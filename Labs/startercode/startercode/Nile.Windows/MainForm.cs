@@ -26,9 +26,9 @@ namespace Nile.Windows
         {
             base.OnLoad(e);
 
-            var connString = ConfigurationManager.ConnectionStrings["ProductDatabase"].ConnectionString;
+            //var connString = ConfigurationManager.ConnectionStrings["ProductDatabase"].ConnectionString;
 
-            _database = new SqlProductDatabase(connString);
+            //_database = new SqlProductDatabase(connString);
 
             _gridProducts.AutoGenerateColumns = false;
 
@@ -48,14 +48,13 @@ namespace Nile.Windows
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
 
-            //TODO:
-            //Handle errors
+            //TODO: Handle errors
             try
             {
                 _database.Add(child.Product);
             } catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "AddFailError", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             //Save product
             UpdateList();
@@ -167,8 +166,11 @@ namespace Nile.Windows
             //TODO: Handle errors
             try
             {
-                _bsProducts.DataSource = _database.GetAll();
+                var products = from p in _database.GetAll()
+                               orderby p.Name
+                               select p;
 
+                _bsProducts.DataSource = _database.GetAll();
                 
             } catch (ArgumentNullException ex)
             {
@@ -176,8 +178,8 @@ namespace Nile.Windows
             }
         }
 
-        //private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
-        private IProductDatabase _database; /*= new SqlProductDatabase();*/
+        private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
+        /* private IProductDatabase _database;*/ /*= new SqlProductDatabase();*/
         #endregion
 
         private void OnHelpAbout( object sender, EventArgs e )

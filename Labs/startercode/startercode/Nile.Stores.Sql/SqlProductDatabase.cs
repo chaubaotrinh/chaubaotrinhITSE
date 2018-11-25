@@ -28,8 +28,7 @@ namespace Nile.Stores.Sql
 
             _connectionString = connectionString;
         }
-
-      
+        
         private readonly string _connectionString;
 
         protected override Product AddCore( Product product )
@@ -47,7 +46,8 @@ namespace Nile.Stores.Sql
                 conn.Open();
                 var result = cmd.ExecuteScalar();
                 var id = Convert.ToInt32(result);
-            };
+                };
+            
             return AddCore(product);
         }
 
@@ -96,7 +96,7 @@ namespace Nile.Stores.Sql
         protected override Product GetCore( int id )
         {
             FindProduct(id);
-            return Get(id);
+            return GetCore(id);
         }
 
         protected override void RemoveCore( int id )
@@ -133,10 +133,10 @@ namespace Nile.Stores.Sql
                     while (reader.Read())
                     {
                         var productId = reader.GetFieldValue<int>(0);
-                        if (productId == id)
+                        if (productId != id)
                             continue;
 
-                       
+
                         return new Product()
                         {
                             Id = productId,
@@ -147,6 +147,7 @@ namespace Nile.Stores.Sql
                         };
                     };
                 };
+                
             };
 
             return null;

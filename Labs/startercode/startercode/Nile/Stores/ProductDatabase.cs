@@ -28,10 +28,14 @@ namespace Nile.Stores
             else if (product.Name == "")
                 throw new ArgumentException("Name cannot be empty");
 
-            //Throw exception when add a product with same name fail 
-            var existing = GetCore(product.Id);
-            //if (product.Name == existing.Name)
-            //    throw new ArgumentException("This product already added.");
+            //Throw exception when adding a product with same name 
+
+            //var existing = GetCore(product.Id);
+            //if (!(String.IsNullOrEmpty(existing.Name)))
+            //{
+            //    if (String.Compare(product.Name, existing.Name, true) == 0)
+            //        throw new ArgumentNullException("This product already added.");
+            //}
 
             if (product.Price < 0)
                 throw new ArgumentOutOfRangeException("Price must be greater or equal to 0");
@@ -108,8 +112,12 @@ namespace Nile.Stores
                 throw new Exception("Product not found.");
 
             //Update product to a new name fails, but using the same name works
-            if (product.Name != existing.Name)
-                throw new ArgumentException("You cannot change the name of product.");
+            //if (product.Name != existing.Name)
+            //{
+            //    if ()
+            //        throw new ArgumentException("This product already added");
+            //}
+                
 
             return UpdateCore(existing, product);
         }
