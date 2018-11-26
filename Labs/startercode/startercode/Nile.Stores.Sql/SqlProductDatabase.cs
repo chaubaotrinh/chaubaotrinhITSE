@@ -149,7 +149,6 @@ namespace Nile.Stores.Sql
                         };
                     };
                 };
-
             };
 
             return null;

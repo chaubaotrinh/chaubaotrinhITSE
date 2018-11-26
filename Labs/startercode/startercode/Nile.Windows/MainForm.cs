@@ -91,7 +91,7 @@ namespace Nile.Windows
 
             var row = grid.Rows[e.RowIndex];
             var item = row.DataBoundItem as Product;
-
+            
             if (item != null)
                 EditProduct(item);
         }
@@ -170,7 +170,7 @@ namespace Nile.Windows
                                orderby p.Name
                                select p;
 
-                _bsProducts.DataSource = _database.GetAll();
+               _bsProducts.DataSource = products.ToList();
                 
             } catch (ArgumentNullException ex)
             {
@@ -179,7 +179,7 @@ namespace Nile.Windows
         }
 
         //private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
-        private IProductDatabase _database; /*= new SqlProductDatabase();*/
+        private IProductDatabase _database; 
         #endregion
 
         private void OnHelpAbout( object sender, EventArgs e )
