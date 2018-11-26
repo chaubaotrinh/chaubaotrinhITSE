@@ -2,7 +2,7 @@
  * Student: Chau Trinh
  * Class: ITSE 1430
  * Lab 4: Nile
- * Date: 19 Nov 2018
+ * Date: 26 Nov 2018
  */
 using System;
 using System.Configuration;
