@@ -111,7 +111,7 @@ namespace Nile.Stores.Sql
                 cmd.CommandText = "RemoveProduct";
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 
-                cmd.Parameters.AddWithValue("@id", GetCore(product.Id));
+                cmd.Parameters.AddWithValue("@id",id);
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
