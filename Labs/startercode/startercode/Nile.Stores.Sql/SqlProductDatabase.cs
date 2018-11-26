@@ -47,7 +47,7 @@ namespace Nile.Stores.Sql
                 var result = cmd.ExecuteScalar();
                 var id = Convert.ToInt32(result);
             };
-            
+
             return AddCore(product);
         }
 
@@ -95,10 +95,8 @@ namespace Nile.Stores.Sql
 
         protected override Product GetCore( int id )
         {
-            //FindProduct(id);
-            //return Get(id);
-            var product = FindProduct(id);
-            return Get(product.Id);
+
+            return FindProduct(id);
         }
 
         protected override void RemoveCore( int id )
@@ -150,7 +148,6 @@ namespace Nile.Stores.Sql
                     };
                 };
             };
-
             return null;
         }
 
@@ -165,7 +162,7 @@ namespace Nile.Stores.Sql
 
                 var id = GetCore(existing.Id);
                 cmd.Parameters.AddWithValue("@id", id);
-                cmd.Parameters.AddWithValue("@name", existing.Name);
+                cmd.Parameters.AddWithValue("@name", newItem.Name);
                 cmd.Parameters.AddWithValue("@description", newItem.Description);
                 cmd.Parameters.AddWithValue("@price", newItem.Price);
                 cmd.Parameters.AddWithValue("@isDiscontinued", newItem.IsDiscontinued);
@@ -174,7 +171,7 @@ namespace Nile.Stores.Sql
                 conn.Open();
                 cmd.ExecuteNonQuery();
             };
-            return Update(existing);
+            return UpdateCore(existing, newItem);
         }
 
         private SqlConnection CreateConnection() => new SqlConnection(_connectionString);
