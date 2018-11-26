@@ -26,9 +26,9 @@ namespace Nile.Windows
         {
             base.OnLoad(e);
 
-            //var connString = ConfigurationManager.ConnectionStrings["ProductDatabase"].ConnectionString;
+            var connString = ConfigurationManager.ConnectionStrings["ProductDatabase"].ConnectionString;
 
-            //_database = new SqlProductDatabase(connString);
+            _database = new SqlProductDatabase(connString);
 
             _gridProducts.AutoGenerateColumns = false;
 
@@ -178,8 +178,8 @@ namespace Nile.Windows
             }
         }
 
-        private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
-        /* private IProductDatabase _database;*/ /*= new SqlProductDatabase();*/
+        //private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
+        private IProductDatabase _database; /*= new SqlProductDatabase();*/
         #endregion
 
         private void OnHelpAbout( object sender, EventArgs e )

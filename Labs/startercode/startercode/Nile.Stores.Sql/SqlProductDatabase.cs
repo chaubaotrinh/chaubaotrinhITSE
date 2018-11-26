@@ -46,7 +46,7 @@ namespace Nile.Stores.Sql
                 conn.Open();
                 var result = cmd.ExecuteScalar();
                 var id = Convert.ToInt32(result);
-                };
+            };
             
             return AddCore(product);
         }
@@ -95,13 +95,15 @@ namespace Nile.Stores.Sql
 
         protected override Product GetCore( int id )
         {
-            FindProduct(id);
-            return GetCore(id);
+            //FindProduct(id);
+            //return Get(id);
+            var product = FindProduct(id);
+            return Get(product.Id);
         }
 
         protected override void RemoveCore( int id )
         {
-            var product = FindProduct(id);
+            var product = GetCore(id);
             if (product == null)
                 return;
 
@@ -147,7 +149,7 @@ namespace Nile.Stores.Sql
                         };
                     };
                 };
-                
+
             };
 
             return null;

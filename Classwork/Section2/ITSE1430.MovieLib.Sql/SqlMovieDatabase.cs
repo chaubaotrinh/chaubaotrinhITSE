@@ -130,7 +130,7 @@ namespace ITSE1430.MovieLib.Sql
                         if (String.Compare(movieName, name, true) != 0)
                             continue;
 
-                        reader.GetOrdinal("Id");
+                        //reader.GetOrdinal("Id");
 
                         return new SqlMovie()
                         {

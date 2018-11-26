@@ -111,13 +111,12 @@ namespace Nile.Stores
             if (existing == null)
                 throw new Exception("Product not found.");
 
-            //Update product to a new name fails, but using the same name works
-            //if (product.Name != existing.Name)
-            //{
-            //    if ()
-            //        throw new ArgumentException("This product already added");
-            //}
-                
+            //Update product to a new name that already exists, fails
+            
+            //if (product.Name != existing.Name && product.Name == GetCore(product.Id).Name)
+            //    throw new ArgumentException("This product already added");
+
+
 
             return UpdateCore(existing, product);
         }
