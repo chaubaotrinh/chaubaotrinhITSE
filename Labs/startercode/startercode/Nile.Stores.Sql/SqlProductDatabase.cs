@@ -48,7 +48,7 @@ namespace Nile.Stores.Sql
                 var id = Convert.ToInt32(result);
             };
 
-            return AddCore(product);
+            return new Product();
         }
 
         protected override IEnumerable<Product> GetAllCore()
