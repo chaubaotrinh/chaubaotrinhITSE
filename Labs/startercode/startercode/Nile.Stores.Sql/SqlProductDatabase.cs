@@ -95,8 +95,8 @@ namespace Nile.Stores.Sql
 
         protected override Product GetCore( int id )
         {
-
-            return FindProduct(id);
+            var product = FindProduct(id);
+            return (product != null) ? new Product() : null;
         }
 
         protected override void RemoveCore( int id )
@@ -108,7 +108,7 @@ namespace Nile.Stores.Sql
             using (var conn = CreateConnection())
             {
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = "RemoveMovie";
+                cmd.CommandText = "RemoveProduct";
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 
                 cmd.Parameters.AddWithValue("@id", GetCore(product.Id));
@@ -171,7 +171,7 @@ namespace Nile.Stores.Sql
                 conn.Open();
                 cmd.ExecuteNonQuery();
             };
-            return UpdateCore(existing, newItem);
+            return new Product();
         }
 
         private SqlConnection CreateConnection() => new SqlConnection(_connectionString);
