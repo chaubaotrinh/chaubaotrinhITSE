@@ -160,7 +160,7 @@ namespace Nile.Stores.Sql
                 cmd.CommandText = "UpdateProduct";
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                var id = GetCore(existing.Id);
+                var id = newItem.Id;
                 cmd.Parameters.AddWithValue("@id", id);
                 cmd.Parameters.AddWithValue("@name", newItem.Name);
                 cmd.Parameters.AddWithValue("@description", newItem.Description);
