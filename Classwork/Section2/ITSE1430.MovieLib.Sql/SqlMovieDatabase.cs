@@ -190,7 +190,8 @@ namespace ITSE1430.MovieLib.Sql
             //return new Movie[0];
         }
 
-        protected override void RemoveCore( string name )
+        protected override void 
+            RemoveCore( string name )
         {
             //find ID
             var movie = FindByName(name);

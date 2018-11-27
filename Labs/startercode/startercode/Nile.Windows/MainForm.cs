@@ -54,7 +54,7 @@ namespace Nile.Windows
                 _database.Add(child.Product);
             } catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "AddFailError", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Add Failed Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             //Save product
             UpdateList();
