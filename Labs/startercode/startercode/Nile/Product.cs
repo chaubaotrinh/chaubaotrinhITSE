@@ -1,15 +1,21 @@
-/*
- * ITSE 1430
+/* 
+ * Student: Chau Trinh
+ * Class: ITSE 1430
+ * Lab 4: Nile
+ * Date: 26 Nov 2018
  */
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace Nile
+
+namespace Nile 
 {
     /// <summary>Represents a product.</summary>
-    public class Product
+    public class Product : IValidatableObject
     {
         /// <summary>Gets or sets the unique identifier.</summary>
-        public int Id { get; set; }
+        public int Id { get; set; } 
 
         /// <summary>Gets or sets the name.</summary>
         /// <value>Never returns null.</value>
@@ -35,6 +41,19 @@ namespace Nile
         public override string ToString()
         {
             return Name;
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (Id < 0)
+                yield return new ValidationResult("ID is greater or equal 0", new[] { nameof(Id) });
+
+            if (String.IsNullOrEmpty(Name))
+                yield return new ValidationResult("Name is required", new[] { nameof(Name) });
+
+            if (Price < 0)
+                yield return new ValidationResult("Price is greater or equal 0", new[] { nameof(Price) });
+
         }
 
         #region Private Members

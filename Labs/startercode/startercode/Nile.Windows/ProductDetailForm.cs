@@ -1,5 +1,8 @@
-/*
- * ITSE 1430
+/* 
+ * Student: Chau Trinh
+ * Class: ITSE 1430
+ * Lab 4: Nile
+ * Date: 26 Nov 2018
  */
 using System;
 using System.ComponentModel;
@@ -70,6 +73,12 @@ namespace Nile.Windows
             };
 
             //TODO: Validate product
+            var results = ObjectValidator.TryValidate(product);
+            foreach (var result in results)
+            {
+                MessageBox.Show(this, result.ErrorMessage, "Validation Failed", MessageBoxButtons.OK);
+                return;
+            }
 
             Product = product;
             DialogResult = DialogResult.OK;

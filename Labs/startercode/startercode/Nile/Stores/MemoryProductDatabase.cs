@@ -1,5 +1,8 @@
-/*
- * ITSE 1430
+/* 
+ * Student: Chau Trinh
+ * Class: ITSE 1430
+ * Lab 4: Nile
+ * Date: 26 Nov 2018
  */
 using System;
 using System.Collections.Generic;
@@ -79,7 +82,7 @@ namespace Nile.Stores
         }
 
         //Find a product by ID
-        private Product FindProduct ( int id )
+        protected override Product FindProduct ( int id )
         {
             foreach (var product in _products)
             {
