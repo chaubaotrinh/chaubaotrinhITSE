@@ -51,5 +51,6 @@ namespace Movie.Mvc.Models
         public int Id { get; set; }
         [Display(Name = "Owned")] //change the title 
         public bool IsOwned { get; set; }
+
     }
 }
