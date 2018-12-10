@@ -107,10 +107,12 @@ namespace EventPlanner.Mvc.Controllers
         public ActionResult Edit( int id )
         {
             var existing = _database.Get(id);
+
             if (existing == null)
                 return HttpNotFound();
-            
+
             return View(new model(existing));
+            
         }
         [HttpPost]
         public ActionResult Edit( model model, EventCriteria criteria)
@@ -120,9 +122,8 @@ namespace EventPlanner.Mvc.Controllers
                 try
                 {
                     var item = model.ToDomain();
+                    item.Id = model.Id;
                     
-                    var existing = _database.GetAll(criteria).FirstOrDefault(i => i.Id == model.Id);
-
                     _database.Update(model.Id, item);
 
                     if (item.IsPublic == true)
@@ -155,8 +156,9 @@ namespace EventPlanner.Mvc.Controllers
         {
             try
             {
-                var existing = _database.GetAll(criteria).FirstOrDefault(i => i.Id == model.Id);
-             
+                var item = model.ToDomain();
+                item.Id = model.Id;
+           
                 _database.Remove(model.Id);
 
                  if (model.IsPublic == true)
