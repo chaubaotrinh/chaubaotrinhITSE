@@ -47,17 +47,17 @@ namespace EventPlanner.Mvc.Models
         public string Description { get; set; }
         
         [Display(Name = "Start Date")]
-        [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
         [Display(Name = "End Date")]
-        [DataType(DataType.Date)]
-        //[Range(typeof(DateTime), "{StartDate}", "", ErrorMessage = "End date must be greater or equal start date")]
-       
-        //[Range(typeof(DateTime), StartDate.Date, DateTime.MaxValue, ErrorMessage = "End date must be greater or equal start date")]
         public DateTime EndDate { get; set; }
 
-        
         public bool IsPublic { get; set; }
+
+        public IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
+        {
+            if (EndDate < StartDate)
+                yield return new ValidationResult("End date must be greater than or equal to start date.", new[] { nameof(EndDate) });
+        }
     }
 }

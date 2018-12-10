@@ -35,6 +35,7 @@ namespace EventPlanner.Mvc.Controllers
                         select i;
 
             return View(items.Select(i => new model(i)));
+
         }
 
         [HttpGet]
@@ -132,11 +133,14 @@ namespace EventPlanner.Mvc.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete( int id, EventCriteria criteria )
+        public ActionResult Delete( int id) 
         {
-            var item = _database.GetAll(criteria).FirstOrDefault(i => i.Id == id);
+            
+            var existing = _database.Get(id);
+            if (existing == null)
+                return HttpNotFound();
 
-            return View(new model(item));
+            return View(new model(existing));
         }
 
         [HttpPost]
