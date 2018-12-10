@@ -59,5 +59,6 @@ namespace EventPlanner.Mvc.Models
             if (EndDate < StartDate)
                 yield return new ValidationResult("End date must be greater than or equal to start date.", new[] { nameof(EndDate) });
         }
+
     }
 }
