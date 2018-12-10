@@ -21,7 +21,10 @@ namespace Movie.Mvc.Controllers
         [HttpGet] //verb Get: retrieve data
         public ActionResult Index()
         {
-            var items = _database.GetAll();
+            //var items = _database.GetAll();
+            var items = from i in _database.GetAll()
+                         orderby i.Name
+                         select i;
             return View(items.Select(i => new MovieModel(i))); //get data
             //= return View("Index");  parameter = name of action => no data = return View()
         }
