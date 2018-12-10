@@ -1,4 +1,11 @@
-﻿using System;
+﻿/* 
+ * Student: Chau Trinh
+ * Class: ITSE 1430
+ * Lab 5: Event Planner
+ * Date: 10 Dec 2018
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,7 +22,7 @@ namespace EventPlanner.Mvc.Models
 
         public model( ScheduledEvent item)
         {
-            if (item !=null)
+            //if (item !=null)
             {
                 Id = item.Id;
                 Name = item.Name;

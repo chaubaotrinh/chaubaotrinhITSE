@@ -1,5 +1,8 @@
-﻿/*
- * ITSE 1430
+﻿/* 
+ * Student: Chau Trinh
+ * Class: ITSE 1430
+ * Lab 5: Event Planner
+ * Date: 10 Dec 2018
  */
 using System;
 using System.Collections.Generic;
