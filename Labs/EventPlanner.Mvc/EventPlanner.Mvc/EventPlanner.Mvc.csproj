@@ -201,7 +201,12 @@
     <Content Include="Views\Event\Edit.cshtml" />
     <Content Include="Views\Event\Delete.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\EventPlanner\EventPlanner.csproj">
+      <Project>{9cb09e42-2a3d-4333-84eb-c4c04076accb}</Project>
+      <Name>EventPlanner</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -214,12 +219,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\Documents\TCC\Programming\C#\Practice\Lab 5\EventPlanner\EventPlanner.csproj">
-      <Project>{9cb09e42-2a3d-4333-84eb-c4c04076accb}</Project>
-      <Name>EventPlanner</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventPlanner.Mvc", "EventPlanner.Mvc\EventPlanner.Mvc.csproj", "{24FA7139-EC13-4567-BB4B-C9EB23EFCD2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventPlanner", "..\..\..\..\..\Documents\TCC\Programming\C#\Practice\Lab 5\EventPlanner\EventPlanner.csproj", "{9CB09E42-2A3D-4333-84EB-C4C04076ACCB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventPlanner", "EventPlanner\EventPlanner.csproj", "{9CB09E42-2A3D-4333-84EB-C4C04076ACCB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
